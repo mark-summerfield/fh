@@ -6,11 +6,26 @@ package main
 import (
 	_ "embed"
 	"fmt"
+	"os"
+	"path/filepath"
+	"strings"
+
+	"github.com/mark-summerfield/fhd"
+	"github.com/mark-summerfield/gong"
 )
 
 //go:embed Version.dat
 var Version string
 
 func main() {
-	fmt.Printf("Hello fh v%s\n", Version)
+	fmt.Printf("fh v%s using fhd v%s\n", strings.TrimSpace(Version),
+		strings.TrimSpace(fhd.Version))
+	filename := filepath.Join(os.TempDir(), "fh-test.fhd")
+	_ = os.Remove(filename)
+	fhd, err := fhd.New(filename)
+	gong.CheckError("unexpected error", err)
+	fmt.Println("filename:", filename)
+	fmt.Println("fhd:", fhd)
+	fmt.Println("fhd.Dump()")
+	_ = fhd.Dump(os.Stdout)
 }
