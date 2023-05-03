@@ -18,6 +18,8 @@ import (
 var Version string
 
 func main() {
+	// TODO subcommands, e.g.,: s|save
+	// TODO hidden subcommand: d|dump
 	fmt.Printf("fh v%s using fhd v%s\n", strings.TrimSpace(Version),
 		strings.TrimSpace(fhd.Version))
 	filename := filepath.Join(os.TempDir(), "fh-test.fhd")
