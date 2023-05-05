@@ -1,4 +1,7 @@
 fh.go
+cli.go
+do.go
+consts.go
 
 README.md
 

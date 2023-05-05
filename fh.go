@@ -8,21 +8,13 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"path/filepath"
 	"strings"
-
-	"github.com/mark-summerfield/fhd"
-	"github.com/mark-summerfield/gong"
 )
 
 //go:embed Version.dat
 var Version string
 
-// See ~/app/go/clip/eg/subcommands/subcommands.go
-
 func main() {
-	// TODO subcommands, e.g.,: s|save
-	// TODO hidden subcommand: d|dump
 	appName := strings.TrimSuffix(path.Base(os.Args[0]), ".exe")
 	args := os.Args[1:]
 	if len(args) == 0 || args[0] == "-h" || args[0] == "--help" ||
@@ -35,34 +27,24 @@ func main() {
 	}
 	subcmd := args[0]
 	args = args[1:]
-	switch subcmd {
-	case "-v", "--version", "v", "version":
-		fmt.Printf("%s v%s\n", appName, Version[:len(Version)-1])
-		os.Exit(0)
-	case "s", "save":
-		//return parseCompare(appName, args, descs[0])
-		return
-	case "d", "dump":
-		dump() // does not return
+	switch subcmd { // None of these return
+	case "e", extractName:
+		doExtract(appName, args, descForSubcmd[extractName])
+	case "i", ignoreName:
+		doIgnore(appName, args, descForSubcmd[ignoreName])
+	case "l", listName:
+		doList(appName, args, descForSubcmd[listName])
+	case "m", monitorName:
+		doMonitor(appName, args, descForSubcmd[monitorName])
+	case "s", saveName:
+		doSave(appName, args, descForSubcmd[saveName])
+	case "u", unmonitorName:
+		doUnmonitor(appName, args, descForSubcmd[unmonitorName])
+	case "-v", "--version", versionName:
+		doVersion(appName, descForSubcmd[versionName])
+	default:
+		fmt.Printf("error: invalid subcommand %q: use -h or --help\n",
+			subcmd)
+		os.Exit(2)
 	}
-	fmt.Printf("error: invalid subcommand %q: use -h or --help\n",
-		subcmd)
-	os.Exit(2)
-}
-
-func dump() {
-	filename := filepath.Join(os.TempDir(), "fh-test.fhd")
-	_ = os.Remove(filename)
-	fhd, err := fhd.New(filename)
-	gong.CheckError("unexpected error", err)
-	fmt.Println("filename:", filename)
-	fmt.Println("fhd:", fhd)
-	fmt.Println("fhd.Dump()")
-	_ = fhd.Dump(os.Stdout)
-	os.Exit(0)
-}
-
-func showHelp() {
-	fmt.Println("showHelp TODO")
-	os.Exit(0)
 }
