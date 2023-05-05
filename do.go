@@ -18,7 +18,7 @@ func doVersion(desc string) {
 func doDump() {
 	fh := getFhd()
 	fmt.Println("dump", fh)
-	fh.Dump(os.Stdout)
+	_ = fh.Dump(os.Stdout)
 	os.Exit(0)
 }
 
