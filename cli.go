@@ -13,23 +13,21 @@ import (
 	"github.com/mark-summerfield/clip"
 )
 
-// See ~/app/go/clip/eg/subcommands/subcommands.go
-
 func showHelp() {
-	fmt.Printf("usage: %s [OPTION] [SUBCOMMAND] ...\n\n%s\n",
+	fmt.Printf("usage: %s [SUBCOMMAND] ...\n\n%s\n",
 		clip.Strong(strings.TrimSuffix(path.Base(os.Args[0]), ".exe")),
 		clip.Emph("subcommands:"))
 	subs := []string{
 		clip.Strong("e") + ", " + clip.Strong(extractName) +
-			"[-s SID] <FILE>",
+			" [-s SID] <FILE>",
 		clip.Strong("i") + ", " + clip.Strong(ignoreName) +
-			" <FILE> [FILE ...]",
+			" <FILE1> [FILE2 ...]",
 		clip.Strong("l") + ", " + clip.Strong(listName),
 		clip.Strong("m") + ", " + clip.Strong(monitorName) +
-			" <FILE> [FILE ...]",
+			" <FILE1> [FILE2 ...]",
 		clip.Strong("s") + ", " + clip.Strong(saveName),
 		clip.Strong("u") + ", " + clip.Strong(unmonitorName) +
-			" <FILE> [FILE ...]",
+			" <FILE1> [FILE2 ...]",
 		clip.Strong("-h") + ", " + clip.Strong(helpName),
 		clip.Strong("-v") + ", " + clip.Strong(versionName)}
 	leftWidths := make([]int, 0, len(subs))
@@ -69,18 +67,4 @@ func descsSlice() []string {
 		descs = append(descs, descForSubcmd[key])
 	}
 	return descs
-}
-
-var descForSubcmd = map[string]string{
-	extractName: `Extract the latest save of the given filename or the save
-specified by the -s --sid.`,
-	ignoreName: `Ignore the specified file(s). If any are already monitored
-they will be set to be unmonitored instead.`,
-	listName:    `List all the available save IDs (SIDs).`,
-	monitorName: `Monitor the specified file(s).`,
-	saveName: `Save all the monitored files that have changed since the
-last save.`,
-	unmonitorName: `Unmonitor the specified file(s).`,
-	helpName:      `Show this help text and quit.`,
-	versionName:   `Show version and quit.`,
 }

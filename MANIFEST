@@ -1,10 +1,13 @@
 fh.go
 cli.go
 do.go
+util.go
 consts.go
 
 README.md
 
 st.sh
 
-go.mod
+go.mod # TODO get rid of the replace
+
+# vim: syn=yaml
