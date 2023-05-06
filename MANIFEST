@@ -1,3 +1,6 @@
+# TODO
+# for testing & debugging add a Hidden option: -f|--fhd FILE.fhd
+
 fh.go
 cli.go
 do.go
