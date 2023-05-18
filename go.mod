@@ -10,9 +10,10 @@ require (
 
 require (
 	github.com/kopoli/go-terminal-size v0.0.0-20170219200355-5c97524c8b54 // indirect
+	github.com/mark-summerfield/gset v0.8.0 // indirect
 	github.com/mattn/go-isatty v0.0.18 // indirect
 	go.etcd.io/bbolt v1.3.7 // indirect
-	golang.org/x/exp v0.0.0-20230510235704-dd950f8aeaea // indirect
+	golang.org/x/exp v0.0.0-20230515195305-f3d0a9c9a5cc // indirect
 	golang.org/x/sys v0.8.0 // indirect
 )
 
